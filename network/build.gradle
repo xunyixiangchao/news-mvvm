@@ -1,0 +1,45 @@
+plugins {
+    id 'com.android.library'
+}
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    api project(':base')
+    implementation "androidx.appcompat:appcompat:$rootProject.androidXVersion"
+    implementation 'com.google.android.material:material:1.1.0'
+
+    api "com.squareup.retrofit2:retrofit:$rootProject.retrofit"
+    api "com.squareup.retrofit2:converter-gson:$rootProject.retrofit"
+    api "com.squareup.retrofit2:adapter-rxjava3:$rootProject.retrofit"
+
+
+    api "io.reactivex.rxjava3:rxjava:$rootProject.rxjava"
+    api "io.reactivex.rxjava3:rxandroid:$rootProject.rxandroid"
+
+    api("com.squareup.okhttp3:okhttp:$rootProject.rxandroid")
+    api("com.squareup.okhttp3:logging-interceptor:$rootProject.rxandroid")
+}
