@@ -1,6 +1,7 @@
 include ':news'
-include ':network'
+//include ':network'
 include ':app'
 include ':base'
 include ':common'
+include ':network-x'
 rootProject.name = "News-MVVM"

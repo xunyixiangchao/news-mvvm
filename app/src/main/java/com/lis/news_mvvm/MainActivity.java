@@ -1,36 +1,33 @@
 package com.lis.news_mvvm;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
-import com.lis.network.utils.RetrofitHelper;
-import com.lis.news.NewsApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
+import com.lis.news.fragment.navigate.NavigateFragment;
+import com.lis.news_mvvm.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
+    ActivityMainBinding mBinding;
+    private Fragment homeFragment = new NavigateFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        // setContentView(R.layout.activity_main);
         //1.搭建网络模块
-        NewsApi apiImpl = RetrofitHelper.getApiImpl("", NewsApi.class);
-        Call newsChannels = apiImpl.getNewsChannels("");
-        newsChannels.enqueue(new Callback() {
-            @Override
-            public void onResponse(Call call, Response response) {
+        //设置toolbar
+        setSupportActionBar(mBinding.toolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("头条");
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment, homeFragment, homeFragment.getClass().getSimpleName());
+        fragmentTransaction.commit();
 
-            }
-
-            @Override
-            public void onFailure(Call call, Throwable t) {
-
-            }
-        });
     }
 }
